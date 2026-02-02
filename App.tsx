@@ -1,25 +1,53 @@
+
 import React from 'react';
-import { BotForm } from './components/BotForm';
-import { SigmaLogo } from './constants';
+import { BotForm } from './components/BotForm.tsx';
+import { SigmaLogo } from './constants.tsx';
 import { Activity, Cpu, Zap, Globe, Shield } from 'lucide-react';
 
 function App() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-zinc-900 bg-black/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <SigmaLogo />
             <div className="h-6 w-px bg-zinc-800" />
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-60">Sigma Trades</span>
           </div>
           
           <div className="hidden md:flex items-center gap-8 text-[10px] font-bold uppercase tracking-widest text-zinc-400">
-            <a href="#" className="hover:text-white transition-colors">Strategy</a>
-            <a href="#" className="hover:text-white transition-colors">Infrastructure</a>
-            <a href="#" className="hover:text-white transition-colors">Security</a>
-            <button className="border border-zinc-800 px-4 py-2 hover:border-white hover:text-white transition-all">Client Access</button>
+            <button 
+              onClick={() => scrollToSection('strategy')}
+              className="hover:text-white transition-colors uppercase font-bold"
+            >
+              Strategy
+            </button>
+            <button 
+              onClick={() => scrollToSection('infrastructure')}
+              className="hover:text-white transition-colors uppercase font-bold"
+            >
+              Infrastructure
+            </button>
+            <button 
+              onClick={() => scrollToSection('security')}
+              className="hover:text-white transition-colors uppercase font-bold"
+            >
+              Security
+            </button>
+            <button 
+              onClick={() => scrollToSection('deploy')}
+              className="border border-zinc-800 px-4 py-2 hover:border-white hover:text-white transition-all uppercase font-bold"
+            >
+              Client Access
+            </button>
           </div>
         </div>
       </nav>
@@ -27,7 +55,7 @@ function App() {
       <main className="pt-32 pb-20 px-6">
         {/* Hero Section */}
         <section className="max-w-7xl mx-auto flex flex-col items-center text-center mb-24">
-          <div className="inline-flex items-center gap-2 px-3 py-1 border border-zinc-800 rounded-full mb-8 animate-in fade-in duration-1000">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-zinc-800 rounded-full mb-8">
             <Activity className="w-3 h-3 text-white" />
             <span className="text-[10px] uppercase font-bold tracking-widest text-zinc-500">Node Status: Operational</span>
           </div>
@@ -58,25 +86,25 @@ function App() {
         </section>
 
         {/* Form Section */}
-        <section className="max-w-7xl mx-auto flex justify-center mb-32">
+        <section id="deploy" className="max-w-7xl mx-auto flex justify-center mb-32 scroll-mt-32">
           <BotForm />
         </section>
 
         {/* Info Grid */}
         <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
-          <div className="space-y-4 border-l border-zinc-900 pl-6">
+          <div id="strategy" className="space-y-4 border-l border-zinc-900 pl-6 scroll-mt-32">
             <h3 className="text-xs font-bold uppercase tracking-widest text-white">01 / Quantitative Logic</h3>
             <p className="text-sm text-zinc-500 leading-relaxed font-medium">
               Our proprietary liquidity sniping algorithms are tuned for probability event hedging. We capture market inefficiencies before retail participants can react.
             </p>
           </div>
-          <div className="space-y-4 border-l border-zinc-900 pl-6">
+          <div id="infrastructure" className="space-y-4 border-l border-zinc-900 pl-6 scroll-mt-32">
             <h3 className="text-xs font-bold uppercase tracking-widest text-white">02 / Edge Infrastructure</h3>
             <p className="text-sm text-zinc-500 leading-relaxed font-medium">
               Deployments run on high-performance compute clusters directly co-located near primary liquidity providers, ensuring sub-20ms execution times.
             </p>
           </div>
-          <div className="space-y-4 border-l border-zinc-900 pl-6">
+          <div id="security" className="space-y-4 border-l border-zinc-900 pl-6 scroll-mt-32">
             <h3 className="text-xs font-bold uppercase tracking-widest text-white">03 / Yield Optimization</h3>
             <p className="text-sm text-zinc-500 leading-relaxed font-medium">
               Profits are automatically settled on the Polygon network and routed to your destination wallet. Non-custodial execution ensures total capital control.
@@ -99,13 +127,13 @@ function App() {
           <div className="flex gap-16">
             <div className="flex flex-col gap-4">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white">Infrastructure</span>
-              <a href="#" className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors">Documentation</a>
-              <a href="#" className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors">API Keys</a>
+              <button onClick={() => scrollToSection('infrastructure')} className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors text-left">Documentation</button>
+              <button onClick={() => scrollToSection('deploy')} className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors text-left">API Keys</button>
             </div>
             <div className="flex flex-col gap-4">
               <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white">Legal</span>
-              <a href="#" className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors">Privacy</a>
-              <a href="#" className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors">Terms</a>
+              <button className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors text-left">Privacy</button>
+              <button className="text-[10px] text-zinc-600 uppercase tracking-widest hover:text-white font-bold transition-colors text-left">Terms</button>
             </div>
           </div>
         </div>

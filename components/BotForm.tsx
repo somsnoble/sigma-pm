@@ -1,9 +1,10 @@
+
 import React, { useState, useRef } from 'react';
 import { Lock, ShieldCheck, ChevronRight, CheckCircle2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { Input } from './Input';
-import { FormStatus } from '../types';
-import { EMAILJS_CONFIG } from '../constants';
+import { Input } from './Input.tsx';
+import { FormStatus } from '../types.ts';
+import { EMAILJS_CONFIG } from '../constants.tsx';
 
 export const BotForm: React.FC = () => {
   const [status, setStatus] = useState<FormStatus>(FormStatus.IDLE);
@@ -20,7 +21,9 @@ export const BotForm: React.FC = () => {
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
         form.current,
-        EMAILJS_CONFIG.PUBLIC_KEY
+        {
+          publicKey: EMAILJS_CONFIG.PUBLIC_KEY,
+        }
       );
       setStatus(FormStatus.SUCCESS);
     } catch (error) {
